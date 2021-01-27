@@ -6,6 +6,7 @@ Created on Wed Jan 27 13:27:43 2021
 """
 import requests
 import json
+import matplotlib.pyplot as plt
 
 
 def getdata(country):
@@ -15,10 +16,20 @@ def getdata(country):
 
 
 def cases(days):
+    tmp_days = []
+    tmp_data = []
     for day in days:
-        print(day['Cases'])
+        # print(day['Cases'])
+        tmp_days.append( day['Date'] )
+        tmp_data.append( day['Cases'] )
+        
+    return tmp_days, tmp_data
 
 if __name__ == '__main__':
     data = getdata("denmark")
-    cases(data)
+    days_list, confirmed_data_by_day = cases(data)
+
+    plt.figure("1 Jan 2020 - 27 Jan 2021")
+    plt.bar(days_list, confirmed_data_by_day)
+    plt.show()
     
