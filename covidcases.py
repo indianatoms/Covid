@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Jan 27 13:27:43 2021
-
 @author: ttome
 """
 import requests
@@ -18,10 +17,16 @@ def getdata(country):
 def cases(days):
     tmp_days = []
     tmp_data = []
+    cntr = 0
     for day in days:
+      cntr += 1
         # print(day['Cases'])
+      if cntr %15 == 0:
         tmp_days.append( day['Date'] )
-        tmp_data.append( day['Cases'] )
+      else:
+        tmp_days.append( '' )
+
+      tmp_data.append( day['Cases'] )
         
     return tmp_days, tmp_data
 
@@ -31,5 +36,6 @@ if __name__ == '__main__':
 
     plt.figure("1 Jan 2020 - 27 Jan 2021")
     plt.bar(days_list, confirmed_data_by_day)
+    plt.xticks(rotation='vertical')
     plt.show()
     
